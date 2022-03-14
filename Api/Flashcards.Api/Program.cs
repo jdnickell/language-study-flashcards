@@ -4,6 +4,9 @@ using Flashcards.Service.CategoryServices;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<IGetCategoryServiceModels, GetCategoryServiceModels>();
+builder.Services.AddScoped<IUpsertCategoryCommand, UpsertCategoryCommand>();
+builder.Services.AddScoped<IDeleteCategoryCommand, DeleteCategoryCommand>();
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddSqlServer<FlashcardsContext>("Server=.\\SQLExpress;Database=Flashcards;Trusted_Connection=True;");

@@ -30,9 +30,7 @@ namespace Flashcards.Service.CategoryServices
         public async Task<List<CategoryServiceModel>> GetListAsync()
         {
             var categories = await _flashcardsContext.Categories.ToListAsync();
-
             var categoryServiceModels = _mapper.Map<List<CategoryServiceModel>>(categories);
-
             return categoryServiceModels;
         }
     }

@@ -9,11 +9,24 @@ namespace Flashcards.Api.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
+        private readonly IUpsertCategoryCommand _upsertCategoryCommand;
+        private readonly IDeleteCategoryCommand _deleteCategoryCommand;
         private readonly IGetCategoryServiceModels _getCategoryServiceModels;
 
-        public CategoriesController(IGetCategoryServiceModels getCategoryServiceModels)
+        public CategoriesController(IUpsertCategoryCommand upsertCategoryCommand
+            , IDeleteCategoryCommand deleteCategoryCommand
+            , IGetCategoryServiceModels getCategoryServiceModels)
         {
+            _upsertCategoryCommand = upsertCategoryCommand ?? throw new ArgumentNullException(nameof(upsertCategoryCommand));
+            _deleteCategoryCommand = deleteCategoryCommand ?? throw new ArgumentNullException(nameof(deleteCategoryCommand));
             _getCategoryServiceModels = getCategoryServiceModels ?? throw new ArgumentNullException(nameof(getCategoryServiceModels));
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CategoryServiceModel>> GetCategory(int id)
+        {
+            var categoryServiceModel = await _getCategoryServiceModels.GetAsync(id);
+            return Ok(categoryServiceModel);
         }
 
         [HttpGet]
@@ -23,80 +36,29 @@ namespace Flashcards.Api.Controllers
             return Ok(categoryServiceModels);
         }
 
-        //// GET: api/Categories/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<Category>> GetCategory(int id)
-        //{
-        //    var category = await _context.Categories.FindAsync(id);
+        [HttpPut]
+        public async Task<ActionResult<CategoryServiceModel>> PutCategory(int id, CategoryUpsertServiceModel categoryUpsertServiceModel)
+        {
+            await _upsertCategoryCommand.ExecuteAsync(id, categoryUpsertServiceModel);
+            var categoryServiceModel = await _getCategoryServiceModels.GetAsync(id);
 
-        //    if (category == null)
-        //    {
-        //        return NotFound();
-        //    }
+            return Ok(categoryServiceModel);
+        }
 
-        //    return category;
-        //}
+        [HttpPost]
+        public async Task<ActionResult<CategoryServiceModel>> PostCategory(CategoryUpsertServiceModel categoryUpsertServiceModel)
+        {
+            var categoryId = await _upsertCategoryCommand.ExecuteAsync(categoryUpsertServiceModel);
+            var categoryServiceModel = await _getCategoryServiceModels.GetAsync(categoryId);
 
-        //// PUT: api/Categories/5
-        //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutCategory(int id, Category category)
-        //{
-        //    if (id != category.Id)
-        //    {
-        //        return BadRequest();
-        //    }
+            return Ok(categoryServiceModel);
+        }
 
-        //    _context.Entry(category).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!CategoryExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return NoContent();
-        //}
-
-        //// POST: api/Categories
-        //[HttpPost]
-        //public async Task<ActionResult<Category>> PostCategory(Category category)
-        //{
-        //    _context.Categories.Add(category);
-        //    await _context.SaveChangesAsync();
-
-        //    return CreatedAtAction("GetCategory", new { id = category.Id }, category);
-        //}
-
-        //// DELETE: api/Categories/5
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteCategory(int id)
-        //{
-        //    var category = await _context.Categories.FindAsync(id);
-        //    if (category == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _context.Categories.Remove(category);
-        //    await _context.SaveChangesAsync();
-
-        //    return NoContent();
-        //}
-
-        //private bool CategoryExists(int id)
-        //{
-        //    return _context.Categories.Any(e => e.Id == id);
-        //}
+        [HttpDelete]
+        public async Task<ActionResult> DeleteAsync(int id)
+        {
+            await _deleteCategoryCommand.ExecuteAsync(id);
+            return NoContent();
+        }
     }
 }
