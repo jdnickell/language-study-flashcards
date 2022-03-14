@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using Flashcards.Domain.Table;
+using Flashcards.Service.CategoryServices.Domain;
 
 namespace Flashcards.Service.AutoMapperProfiles
 {
-    public class CategoryProfile
+    public class CategoryProfile : Profile
     {
+        public CategoryProfile()
+        {
+            CreateMap<Category, CategoryServiceModel>()
+                .ReverseMap();
+        }
     }
 }
