@@ -13,3 +13,5 @@ namespace Flashcards.Api.Controllers
         }
     }
 }
+//Scaffold-DbContext "Server=.\SQLExpress;Database=Flashcards;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer - OutputDir Models
+//Scaffold-DbContext "Server=.\SQLExpress;Database=Flashcards;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
