@@ -8,7 +8,7 @@ namespace Flashcards.Api.Models
         {
         }
 
-        public FlashcardsContext(DbContextOptions<FlashcardsContext> options)
+        public FlashcardsContext(DbContextOptions options)
             : base(options)
         {
         }
@@ -17,14 +17,6 @@ namespace Flashcards.Api.Models
         public virtual DbSet<Deck> Decks { get; set; } = null!;
         public virtual DbSet<DeckFlashcard> DeckFlashcards { get; set; } = null!;
         public virtual DbSet<Flashcard> Flashcards { get; set; } = null!;
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=Flashcards;Trusted_Connection=True;");
-            }
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
