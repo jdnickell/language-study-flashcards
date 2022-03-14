@@ -1,11 +1,13 @@
 using Flashcards.DataAccess;
 using Flashcards.Service.CategoryServices;
+using Flashcards.Service.FlashcardServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<IGetCategoryServiceModels, GetCategoryServiceModels>();
 builder.Services.AddScoped<IUpsertCategoryCommand, UpsertCategoryCommand>();
 builder.Services.AddScoped<IDeleteCategoryCommand, DeleteCategoryCommand>();
+builder.Services.AddScoped<IGetFlashcardServiceModels, GetFlashcardServiceModels>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
