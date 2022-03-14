@@ -3,7 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flashcards.Api", "Flashcards.Api.csproj", "{CD64A69F-4A6E-4440-95AC-CC07180D7F7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flashcards.Api", "Flashcards.Api.csproj", "{CD64A69F-4A6E-4440-95AC-CC07180D7F7B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flashcards.DataAccess", "..\Flashcards.DataAccess\Flashcards.DataAccess.csproj", "{E6F7C6D6-978A-4D68-A883-BB253954F5BA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flashcards.Domain", "..\Flashcards.Domain\Flashcards.Domain.csproj", "{3A82590F-FE33-4A4D-91DD-2213CF33C4F1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flashcards.Service", "..\Flashcards.Service\Flashcards.Service.csproj", "{6CFE300F-F992-43AD-ADBE-9BEEA827E28E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{32C6C4DA-535A-4BDA-8F18-15E32075FA42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flashcards.Service.Tests", "..\Flashcards.Service.Tests\Flashcards.Service.Tests.csproj", "{CAF5DEFA-7B82-4BC7-95DF-79445CB39BD5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +25,28 @@ Global
 		{CD64A69F-4A6E-4440-95AC-CC07180D7F7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD64A69F-4A6E-4440-95AC-CC07180D7F7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD64A69F-4A6E-4440-95AC-CC07180D7F7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6F7C6D6-978A-4D68-A883-BB253954F5BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6F7C6D6-978A-4D68-A883-BB253954F5BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6F7C6D6-978A-4D68-A883-BB253954F5BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6F7C6D6-978A-4D68-A883-BB253954F5BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A82590F-FE33-4A4D-91DD-2213CF33C4F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A82590F-FE33-4A4D-91DD-2213CF33C4F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A82590F-FE33-4A4D-91DD-2213CF33C4F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A82590F-FE33-4A4D-91DD-2213CF33C4F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CFE300F-F992-43AD-ADBE-9BEEA827E28E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CFE300F-F992-43AD-ADBE-9BEEA827E28E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CFE300F-F992-43AD-ADBE-9BEEA827E28E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CFE300F-F992-43AD-ADBE-9BEEA827E28E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAF5DEFA-7B82-4BC7-95DF-79445CB39BD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAF5DEFA-7B82-4BC7-95DF-79445CB39BD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAF5DEFA-7B82-4BC7-95DF-79445CB39BD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAF5DEFA-7B82-4BC7-95DF-79445CB39BD5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CAF5DEFA-7B82-4BC7-95DF-79445CB39BD5} = {32C6C4DA-535A-4BDA-8F18-15E32075FA42}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {84E81096-6112-4CBC-8794-B7C6A09BEF14}

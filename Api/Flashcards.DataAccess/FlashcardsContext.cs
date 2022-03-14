@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Flashcards.Domain.Table;
+using Microsoft.EntityFrameworkCore;
 
-namespace Flashcards.Api.Models
+namespace Flashcards.DataAccess
 {
     public partial class FlashcardsContext : DbContext
     {

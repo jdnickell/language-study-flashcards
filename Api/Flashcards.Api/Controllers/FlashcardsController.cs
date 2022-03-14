@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Flashcards.Api.Models;
+using Flashcards.Api.ServiceModels;
 
 namespace Flashcards.Api.Controllers
 {
@@ -68,8 +69,17 @@ namespace Flashcards.Api.Controllers
 
         // POST: api/Flashcards
         [HttpPost]
-        public async Task<ActionResult<Flashcard>> PostFlashcard(Flashcard flashcard)
+        public async Task<ActionResult<Flashcard>> PostFlashcard(FlashcardServiceModel flashcardServiceModel)
         {
+            var flashcard = new Flashcard
+            {
+                Id = flashcardServiceModel.Id,
+                Back = flashcardServiceModel.Back,
+                CategoryId = flashcardServiceModel.CategoryId,
+                Front = flashcardServiceModel.Front,
+                Title = flashcardServiceModel.Title
+            };
+
             _context.Flashcards.Add(flashcard);
             await _context.SaveChangesAsync();
 

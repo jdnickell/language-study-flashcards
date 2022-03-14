@@ -1,4 +1,4 @@
-﻿namespace Flashcards.Api.Models
+﻿namespace Flashcards.Domain.Table
 {
     public partial class Category
     {

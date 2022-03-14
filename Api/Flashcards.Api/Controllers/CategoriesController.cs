@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Flashcards.DataAccess;
+using Flashcards.Service.CategoryServices.Domain;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Flashcards.Api.Models;
 
 namespace Flashcards.Api.Controllers
 {
@@ -17,7 +18,7 @@ namespace Flashcards.Api.Controllers
 
         // GET: api/Categories
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
+        public async Task<ActionResult<IEnumerable<CategoryServiceModel>>> GetCategories()
         {
             return await _context.Categories.ToListAsync();
         }
