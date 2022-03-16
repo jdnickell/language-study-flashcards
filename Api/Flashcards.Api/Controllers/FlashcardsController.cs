@@ -33,7 +33,8 @@ namespace Flashcards.Api.Controllers
         [Route("GetByCategoryId/{categoryId}")]
         public async Task<ActionResult<IEnumerable<FlashcardServiceModel>>> GetFlashcardsByCategoryId(int categoryId)
         {
-            return Ok();
+            var flashCard = await _getFlashcardServiceModels.GetListByCategoryIdAsync(categoryId);
+            return Ok(flashCard);
         }
     }
 }

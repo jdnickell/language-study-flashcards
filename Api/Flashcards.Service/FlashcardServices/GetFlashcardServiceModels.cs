@@ -37,7 +37,7 @@ namespace Flashcards.Service.FlashcardServices
             return flashcardServiceModels;
         }
 
-        public async Task<List<FlashcardServiceModel>> GetListAsync(int categoryId)
+        public async Task<List<FlashcardServiceModel>> GetListByCategoryIdAsync(int categoryId)
         {
             var flashcards = await _flashcardsContext.Flashcards.Where(x => x.CategoryId == categoryId).ToListAsync();
             var flashcardServiceModels = _mapper.Map<List<FlashcardServiceModel>>(flashcards);
@@ -50,6 +50,6 @@ namespace Flashcards.Service.FlashcardServices
     {
         Task<FlashcardServiceModel> GetAsync(int id);
         Task<List<FlashcardServiceModel>> GetListAsync();
-        Task<List<FlashcardServiceModel>> GetListAsync(int categoryId);
+        Task<List<FlashcardServiceModel>> GetListByCategoryIdAsync(int categoryId);
     }
 }
