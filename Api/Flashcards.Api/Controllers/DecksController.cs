@@ -1,100 +1,79 @@
-﻿//using Microsoft.AspNetCore.Mvc;
-//using Microsoft.EntityFrameworkCore;
-//using Flashcards.Api.Models;
+﻿using Flashcards.Service.DeckServices;
+using Flashcards.Service.DeckServices.Domain;
+using Microsoft.AspNetCore.Mvc;
 
-//namespace Flashcards.Api.Controllers
-//{
-//    [Route("api/[controller]")]
-//    [ApiController]
-//    public class DecksController : ControllerBase
-//    {
-//        private readonly FlashcardsContext _context;
+namespace Flashcards.Api.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class DecksController : ControllerBase
+    {
+        private readonly IDeleteDeckCommand _deleteDeckCommand;
+        private readonly IUpsertDeckCommand _upsertDeckCommand;
+        private readonly IGetDeckServiceModels _getDeckServiceModels;
 
-//        public DecksController(FlashcardsContext context)
-//        {
-//            _context = context;
-//        }
+        public DecksController(IDeleteDeckCommand deleteDeckCommand
+            , IUpsertDeckCommand upsertDeckCommand
+            , IGetDeckServiceModels getDeckServiceModels)
+        {
+            _deleteDeckCommand = deleteDeckCommand ?? throw new ArgumentNullException(nameof(deleteDeckCommand));
+            _upsertDeckCommand = upsertDeckCommand ?? throw new ArgumentNullException(nameof(upsertDeckCommand));
+            _getDeckServiceModels = getDeckServiceModels ?? throw new ArgumentNullException(nameof(getDeckServiceModels));
+        }
 
-//        // GET: api/Decks
-//        [HttpGet]
-//        public async Task<ActionResult<IEnumerable<Deck>>> GetDecks()
-//        {
-//            return await _context.Decks.ToListAsync();
-//        }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<DeckServiceModel>>> GetDecks()
+        {
+            var deckServiceModels = await _getDeckServiceModels.GetListAsync();
+            return Ok(deckServiceModels);
+        }
 
-//        // GET: api/Decks/5
-//        [HttpGet("{id}")]
-//        public async Task<ActionResult<Deck>> GetDeck(int id)
-//        {
-//            var deck = await _context.Decks.FindAsync(id);
+        [HttpGet("{id}")]
+        public async Task<ActionResult<DeckServiceModel>> GetDeck(int id)
+        {
+            var deck = await _getDeckServiceModels.GetAsync(id);
+            return Ok(deck);
+        }
 
-//            if (deck == null)
-//            {
-//                return NotFound();
-//            }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutDeck(int id, DeckServiceModel deckServiceModel)
+        {
+            await _upsertDeckCommand.ExecuteAsync(id, deckServiceModel);
 
-//            return deck;
-//        }
+            var updatedDeckServiceModel = await _getDeckServiceModels.GetAsync(id);
 
-//        // PUT: api/Decks/5
-//        [HttpPut("{id}")]
-//        public async Task<IActionResult> PutDeck(int id, Deck deck)
-//        {
-//            if (id != deck.Id)
-//            {
-//                return BadRequest();
-//            }
+            return Ok(updatedDeckServiceModel);
+        }
 
-//            _context.Entry(deck).State = EntityState.Modified;
+        [HttpPost]
+        public async Task<ActionResult<DeckServiceModel>> PostDeck(DeckServiceModel deckServiceModel)
+        {
+            var deckId = await _upsertDeckCommand.ExecuteAsync(deckServiceModel);
 
-//            try
-//            {
-//                await _context.SaveChangesAsync();
-//            }
-//            catch (DbUpdateConcurrencyException)
-//            {
-//                if (!DeckExists(id))
-//                {
-//                    return NotFound();
-//                }
-//                else
-//                {
-//                    throw;
-//                }
-//            }
+            var createdDeckServiceModel = await _getDeckServiceModels.GetAsync(deckId);
 
-//            return NoContent();
-//        }
+            return Ok(createdDeckServiceModel);
+        }
 
-//        // POST: api/Decks
-//        [HttpPost]
-//        public async Task<ActionResult<Deck>> PostDeck(Deck deck)
-//        {
-//            _context.Decks.Add(deck);
-//            await _context.SaveChangesAsync();
+        [HttpPost("DeckFlashCard")]
+        public async Task<ActionResult<DeckServiceModel>> PostDeck(DeckFlashCardServiceModel deckFlashCardServiceModel)
+        {
+            await _upsertDeckCommand.ExecuteAsync(deckFlashCardServiceModel);
+            return Ok();
+        }
 
-//            return CreatedAtAction("GetDeck", new { id = deck.Id }, deck);
-//        }
+        [HttpDelete("DeckFlashCard")]
+        public async Task<IActionResult> DeleteDeck(DeckFlashCardServiceModel deckFlashCardServiceModel)
+        {
+            await _deleteDeckCommand.ExecuteAsync(deckFlashCardServiceModel);
+            return Ok();
+        }
 
-//        // DELETE: api/Decks/5
-//        [HttpDelete("{id}")]
-//        public async Task<IActionResult> DeleteDeck(int id)
-//        {
-//            var deck = await _context.Decks.FindAsync(id);
-//            if (deck == null)
-//            {
-//                return NotFound();
-//            }
-
-//            _context.Decks.Remove(deck);
-//            await _context.SaveChangesAsync();
-
-//            return NoContent();
-//        }
-
-//        private bool DeckExists(int id)
-//        {
-//            return _context.Decks.Any(e => e.Id == id);
-//        }
-//    }
-//}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteDeck(int id)
+        {
+            await _deleteDeckCommand.ExecuteAsync(id);
+            return Ok();
+        }
+    }
+}

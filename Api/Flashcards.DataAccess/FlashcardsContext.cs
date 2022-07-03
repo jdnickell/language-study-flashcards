@@ -49,8 +49,6 @@ namespace Flashcards.DataAccess
 
             modelBuilder.Entity<DeckFlashcard>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("Deck_Flashcard");
 
                 entity.HasIndex(e => e.DeckId, "IX_Deck_Flashcard");

@@ -2,6 +2,7 @@
 {
     public partial class DeckFlashcard
     {
+        public int Id { get; set; }
         public int DeckId { get; set; }
         public int FlashcardId { get; set; }
 
