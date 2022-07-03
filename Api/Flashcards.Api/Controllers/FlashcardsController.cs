@@ -8,10 +8,16 @@ namespace Flashcards.Api.Controllers
     [ApiController]
     public class FlashcardsController : ControllerBase
     {
+        private readonly IUpsertFlashcardCommand _upsertFlashcardCommand;
+        private readonly IDeleteFlashcardCommand _deleteFlashcardCommand;
         private readonly IGetFlashcardServiceModels _getFlashcardServiceModels;
 
-        public FlashcardsController(IGetFlashcardServiceModels getFlashcardServiceModels)
+        public FlashcardsController(IUpsertFlashcardCommand upsertFlashcardCommand
+            , IDeleteFlashcardCommand deleteFlashcardCommand
+            , IGetFlashcardServiceModels getFlashcardServiceModels)
         {
+            _upsertFlashcardCommand = upsertFlashcardCommand;
+            _deleteFlashcardCommand = deleteFlashcardCommand;
             _getFlashcardServiceModels = getFlashcardServiceModels;
         }
 
@@ -35,6 +41,23 @@ namespace Flashcards.Api.Controllers
         {
             var flashCard = await _getFlashcardServiceModels.GetListByCategoryIdAsync(categoryId);
             return Ok(flashCard);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<FlashcardServiceModel>> PostDeck(FlashcardUpsertServiceModel flashcardUpsertServiceModel)
+        {
+            var flashCardId = await _upsertFlashcardCommand.ExecuteAsync(flashcardUpsertServiceModel);
+
+            var flashcardServiceModel = await _getFlashcardServiceModels.GetAsync(flashCardId);
+
+            return Ok(flashcardServiceModel);
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult> DeleteAsync(int id)
+        {
+            await _deleteFlashcardCommand.ExecuteAsync(id);
+            return NoContent();
         }
     }
 }

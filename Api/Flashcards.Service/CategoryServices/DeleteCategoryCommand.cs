@@ -19,9 +19,7 @@ namespace Flashcards.Service.CategoryServices
             if (category == null)
                 throw new Exception($"Category with id {id} not found.");
 
-            //TODO:
-            //validate against flashcards with categoryId or cascade delete?
-            //make virtual delete?
+            //TODO: Category may already be assigned to flashcards and those flashcards may already exist in other decks
 
             _flashcardsContext.Categories.Remove(category);
             await _flashcardsContext.SaveChangesAsync();

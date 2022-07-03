@@ -9,10 +9,11 @@ builder.Services.AddScoped<IGetCategoryServiceModels, GetCategoryServiceModels>(
 builder.Services.AddScoped<IUpsertCategoryCommand, UpsertCategoryCommand>();
 builder.Services.AddScoped<IDeleteCategoryCommand, DeleteCategoryCommand>();
 builder.Services.AddScoped<IGetFlashcardServiceModels, GetFlashcardServiceModels>();
-
 builder.Services.AddScoped<IGetDeckServiceModels, GetDeckServiceModels>();
 builder.Services.AddScoped<IUpsertDeckCommand, UpsertDeckCommand>();
 builder.Services.AddScoped<IDeleteDeckCommand, DeleteDeckCommand>();
+builder.Services.AddScoped<IDeleteFlashcardCommand, DeleteFlashcardCommand>();
+builder.Services.AddScoped<IUpsertFlashcardCommand, UpsertFlashcardCommand>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

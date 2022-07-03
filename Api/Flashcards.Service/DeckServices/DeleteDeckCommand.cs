@@ -12,12 +12,10 @@ namespace Flashcards.Service.DeckServices
         {
             _flashcardsContext = flashcardsContext ?? throw new ArgumentNullException(nameof(flashcardsContext));
         }
-        
+
         /// <summary>
-        /// Deletes an entire Deck and all Deck/Flashcard associations
+        ///  Deletes an entire Deck and all Deck/Flashcard associations
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         public async Task ExecuteAsync(int deckId)
         {
             var deckFlashcards = await _flashcardsContext.DeckFlashcards.Where(x => x.DeckId == deckId).ToListAsync();
@@ -28,7 +26,7 @@ namespace Flashcards.Service.DeckServices
             }
 
             var deck = await _flashcardsContext.Decks.Where(x => x.Id == deckId).FirstOrDefaultAsync();
-            if(deck == null)
+            if (deck == null)
             { 
                 throw new Exception($"Deck with id {deckId} not found.");
             }
@@ -38,11 +36,8 @@ namespace Flashcards.Service.DeckServices
         }
 
         /// <summary>
-        /// Deletes a single Deck/Flashcard association
+        ///  Deletes a single Deck/Flashcard association
         /// </summary>
-        /// <param name="deckId"></param>
-        /// <param name="flashCardId"></param>
-        /// <returns></returns>
         public async Task ExecuteAsync(DeckFlashCardServiceModel deckFlashCardServiceModel)
         {
             var deckFlashCard = await _flashcardsContext.DeckFlashcards

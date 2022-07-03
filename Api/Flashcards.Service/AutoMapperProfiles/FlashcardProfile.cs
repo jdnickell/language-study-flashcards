@@ -10,6 +10,8 @@ namespace Flashcards.Service.AutoMapperProfiles
         {
             CreateMap<Flashcard, FlashcardServiceModel>()
                 .ReverseMap();
+            CreateMap<Flashcard, FlashcardUpsertServiceModel>()
+                .ReverseMap();
         }
     }
 }
