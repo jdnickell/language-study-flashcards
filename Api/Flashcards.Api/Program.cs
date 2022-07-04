@@ -1,22 +1,20 @@
 using Flashcards.DataAccess;
-using Flashcards.Service.CategoryServices;
-using Flashcards.Service.DeckServices;
-using Flashcards.Service.FlashcardServices;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddScoped<IGetCategoryServiceModels, GetCategoryServiceModels>();
-builder.Services.AddScoped<IUpsertCategoryCommand, UpsertCategoryCommand>();
-builder.Services.AddScoped<IDeleteCategoryCommand, DeleteCategoryCommand>();
-builder.Services.AddScoped<IGetFlashcardServiceModels, GetFlashcardServiceModels>();
-builder.Services.AddScoped<IGetDeckServiceModels, GetDeckServiceModels>();
-builder.Services.AddScoped<IUpsertDeckCommand, UpsertDeckCommand>();
-builder.Services.AddScoped<IDeleteDeckCommand, DeleteDeckCommand>();
-builder.Services.AddScoped<IDeleteFlashcardCommand, DeleteFlashcardCommand>();
-builder.Services.AddScoped<IUpsertFlashcardCommand, UpsertFlashcardCommand>();
+var serviceProjectTypes = Assembly.GetAssembly(typeof(Flashcards.Service.Resources));
+
+if (serviceProjectTypes != null)
+{
+    serviceProjectTypes.ExportedTypes
+    .Where(t => t.IsClass)
+    .SelectMany(t => t.GetInterfaces(), (c, i) => new { Class = c, Interface = i })
+    .ToList()
+    .ForEach(x => builder.Services.AddScoped(x.Interface, x.Class));
+}
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
 builder.Services.AddSqlServer<FlashcardsContext>("Server=.\\SQLExpress;Database=Flashcards;Trusted_Connection=True;");
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
