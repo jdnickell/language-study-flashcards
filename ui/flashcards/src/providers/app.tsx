@@ -6,15 +6,12 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 const ErrorFallback = () => {
   return (
-    <div
-      className="text-red-500 w-screen h-screen flex flex-col justify-center items-center"
-      role="alert"
-    >
-      <h2 className="text-lg font-semibold">Ooops, something went wrong :( </h2>
+    <Box>
+      <Typography variant="h4">Oops, something went wrong</Typography>
       <Button className="mt-4" onClick={() => window.location.assign(window.location.origin)}>
         Refresh
       </Button>
-    </div>
+    </Box>
   );
 };
 
@@ -31,13 +28,11 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         </Box>
       }
     >
-      <Typography>
-        <ErrorBoundary FallbackComponent={ErrorFallback}>
-          <HelmetProvider>
-            <Router>{children}</Router>
-          </HelmetProvider>
-        </ErrorBoundary>
-      </Typography>
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <HelmetProvider>
+          <Router>{children}</Router>
+        </HelmetProvider>
+      </ErrorBoundary>
     </React.Suspense>
   );
 };

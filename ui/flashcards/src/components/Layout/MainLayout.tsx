@@ -3,15 +3,15 @@ import * as React from 'react';
 
 type MainLayoutProps = {
   children: React.ReactNode;
-  title: string;
 };
 
-export const MainLayout = ({ title }: MainLayoutProps) => {
+export const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <>
       <Box>
-        <Typography>{title}</Typography>
-        <Box>child components</Box>
+        <Box>
+          <Typography>{children}</Typography>
+        </Box>
       </Box>
     </>
   );
