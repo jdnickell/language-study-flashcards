@@ -7,6 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
+import SettingsBrightness from '@mui/icons-material/SettingsBrightness';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -14,6 +15,9 @@ import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
+
+import { useDispatch } from 'react-redux';
+import { toggleTheme } from '../../features/misc/appSlice';
 
 const RootStyle = styled(AppBar)(({ theme }) => ({
   boxShadow: 'none',
@@ -70,6 +74,8 @@ type MainLayoutProps = {
 };
 
 export const MainLayout = ({ children }: MainLayoutProps) => {
+  const dispatch = useDispatch();
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -133,6 +139,14 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
+        <NavIconButton
+          size="large"
+          aria-label="toggle dark or light mode"
+          aria-controls="primary-search-menu"
+          onClick={() => dispatch(toggleTheme())}
+        >
+          <SettingsBrightness />
+        </NavIconButton>
         <NavIconButton size="large" aria-label="show 17 new notifications">
           <Badge badgeContent={17} color="error">
             <NotificationsIcon />
@@ -179,6 +193,14 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
             </Search>
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <NavIconButton
+                size="large"
+                aria-label="toggle dark or light mode"
+                aria-controls="primary-search-menu"
+                onClick={() => dispatch(toggleTheme())}
+              >
+                <SettingsBrightness />
+              </NavIconButton>
               <NavIconButton size="large" aria-label="show 17 new notifications">
                 <Badge badgeContent={17} color="error">
                   <NotificationsIcon />
