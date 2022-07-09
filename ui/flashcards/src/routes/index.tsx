@@ -14,7 +14,7 @@ export const AppRoutes = () => {
 
   //const routes = auth.user ? protectedRoutes : publicRoutes;
   const routes = protectedRoutes;
-  debugger;
+
   const element = useRoutes([...routes, ...commonRoutes]);
 
   return <>{element}</>;

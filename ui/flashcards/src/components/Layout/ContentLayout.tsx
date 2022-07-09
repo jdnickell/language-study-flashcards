@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import * as React from 'react';
 
 import { Head } from '../Head';
@@ -12,10 +12,10 @@ export const ContentLayout = ({ children, title }: ContentLayoutProps) => {
   return (
     <>
       <Head title={title} />
-      <Box>
-        <Typography variant="h2">{title}</Typography>
-        <Box>{children}</Box>
-      </Box>
+      <Container fixed>
+        <Typography variant="h5">{title}</Typography>
+        <Box py={3}>{children}</Box>
+      </Container>
     </>
   );
 };
