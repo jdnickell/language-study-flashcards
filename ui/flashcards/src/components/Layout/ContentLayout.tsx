@@ -13,7 +13,9 @@ export const ContentLayout = ({ children, title }: ContentLayoutProps) => {
     <>
       <Head title={title} />
       <Container fixed>
-        <Typography variant="h5">{title}</Typography>
+        <Typography py={3} variant="h5">
+          {title}
+        </Typography>
         <Box py={3}>{children}</Box>
       </Container>
     </>
