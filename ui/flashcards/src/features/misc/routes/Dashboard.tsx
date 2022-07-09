@@ -1,11 +1,17 @@
 import { styled } from '@mui/material/styles';
 import { ContentLayout } from '../../../components/Layout';
 import { Button, Grid } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const DashboardButton = styled(Button)(({ theme }) => ({
   height: '30vh',
   minHeight: '100px',
   width: '100%',
+}));
+
+const NoStyleLink = styled(Link)(({ theme }) => ({
+  color: 'inherit',
+  textDecoration: 'none',
 }));
 
 export const Dashboard = () => {
@@ -18,9 +24,11 @@ export const Dashboard = () => {
           </DashboardButton>
         </Grid>
         <Grid item xs={6}>
-          <DashboardButton variant="outlined" color="primary">
-            Categories
-          </DashboardButton>
+          <NoStyleLink key={'Categories'} to={'../categories'}>
+            <DashboardButton variant="outlined" color="primary">
+              Categories
+            </DashboardButton>
+          </NoStyleLink>
         </Grid>
         <Grid item xs={6}>
           <DashboardButton variant="outlined" color="primary">
