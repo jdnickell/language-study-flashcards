@@ -1,7 +1,6 @@
 ﻿using Flashcards.Service.CategoryServices;
 using Flashcards.Service.CategoryServices.Domain;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Flashcards.Api.Controllers
 {

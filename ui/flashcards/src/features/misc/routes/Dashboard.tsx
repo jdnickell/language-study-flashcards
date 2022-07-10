@@ -36,9 +36,11 @@ export const Dashboard = () => {
           </DashboardButton>
         </Grid>
         <Grid item xs={6}>
-          <DashboardButton variant="outlined" color="primary">
-            Flashcards
-          </DashboardButton>
+          <NoStyleLink key={'Flashcards'} to={'../flashcards'}>
+            <DashboardButton variant="outlined" color="primary">
+              Flashcards
+            </DashboardButton>
+          </NoStyleLink>
         </Grid>
       </Grid>
     </ContentLayout>

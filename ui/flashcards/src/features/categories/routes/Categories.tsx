@@ -11,7 +11,6 @@ export const Categories = () => {
   const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
-    debugger;
     getCategories().then((categoriesResult) => {
       setCategories(categoriesResult);
     });
