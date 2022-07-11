@@ -12,6 +12,16 @@ import { Flashcard } from '../types';
 export const Flashcards = () => {
   const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
 
+  const handleFlashcardAdded = (newFlashcard: Flashcard) => {
+    let newFlashcards = [...flashcards, newFlashcard];
+    setFlashcards(newFlashcards);
+  };
+
+  const handleFlashcardDeleted = (deletedFlashcardId: number) => {
+    let undeletedFlashcards = flashcards.filter((x) => x.id !== deletedFlashcardId);
+    setFlashcards(undeletedFlashcards);
+  };
+
   useEffect(() => {
     getFlashcards().then((flashcardsResult) => {
       setFlashcards(flashcardsResult);
@@ -22,7 +32,7 @@ export const Flashcards = () => {
     <>
       <Head title={'Flashcards'} description={'All'} />
       <ContentLayout title="Flashcards">
-        <CreateFlashcard />
+        <CreateFlashcard handleFlashcardAdded={handleFlashcardAdded} />
         {!flashcards?.length && (
           <>
             <Typography py={3} textAlign={'center'}>
@@ -32,7 +42,13 @@ export const Flashcards = () => {
         )}
         <Grid container spacing={2}>
           {flashcards.map((flashcard, index) => {
-            return <FlashCardGridItem key={index} flashcard={flashcard} />;
+            return (
+              <FlashCardGridItem
+                handleFlashcardDeleted={handleFlashcardDeleted}
+                key={index}
+                flashcard={flashcard}
+              />
+            );
           })}
         </Grid>
       </ContentLayout>

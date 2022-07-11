@@ -53,7 +53,7 @@ namespace Flashcards.Api.Controllers
             return Ok(flashcardServiceModel);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteAsync(int id)
         {
             await _deleteFlashcardCommand.ExecuteAsync(id);

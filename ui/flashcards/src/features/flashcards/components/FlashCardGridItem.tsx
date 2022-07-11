@@ -3,7 +3,6 @@ import {
   Box,
   Card,
   CardActionArea,
-  CardActions,
   CardContent,
   Grid,
   Typography,
@@ -15,13 +14,25 @@ import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { useState } from 'react';
 import { Flashcard } from '../types';
+import { deleteFlashcard } from '../api/deleteFlashcard';
 
 type FlashCardGridItemProps = {
   flashcard: Flashcard;
+  handleFlashcardDeleted: (params: any) => any;
 };
 
-export const FlashCardGridItem = ({ flashcard }: FlashCardGridItemProps) => {
+export const FlashCardGridItem = ({
+  flashcard,
+  handleFlashcardDeleted,
+}: FlashCardGridItemProps) => {
   const [isBack, setIsBack] = useState(false);
+
+  async function handleDeleteFlashCard(id: number) {
+    await deleteFlashcard({
+      id: id,
+    });
+    handleFlashcardDeleted(id);
+  }
 
   return (
     <Grid item xs={12} sm={6} md={4} lg={3}>
@@ -48,7 +59,7 @@ export const FlashCardGridItem = ({ flashcard }: FlashCardGridItemProps) => {
           </CardContent>
         </CardActionArea>
         <Stack direction="row" justifyContent="space-between" alignItems="center" p={1} spacing={2}>
-          <Button size="small">
+          <Button size="small" onClick={() => handleDeleteFlashCard(flashcard.id)}>
             <DeleteTwoToneIcon />
           </Button>
           <Button size="small">

@@ -12,7 +12,11 @@ import AddCircleOutlineTwoToneIcon from '@mui/icons-material/AddCircleOutlineTwo
 import { useState } from 'react';
 import { createFlashcard } from '../api/createFlashcard';
 
-export const CreateFlashcard = () => {
+interface CreateFlashcardProps {
+  handleFlashcardAdded: (params: any) => any;
+}
+
+export const CreateFlashcard = ({ handleFlashcardAdded }: CreateFlashcardProps) => {
   const initialDataState = { title: '', front: '', back: '', categoryId: 5 };
 
   const [data, setData] = useState(initialDataState);
@@ -22,6 +26,7 @@ export const CreateFlashcard = () => {
     let newFlashcard = await createFlashcard({
       data: data,
     });
+    handleFlashcardAdded(newFlashcard);
     setIsOpen(false);
   }
 
