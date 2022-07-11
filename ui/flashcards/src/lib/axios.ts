@@ -23,6 +23,7 @@ axios.interceptors.response.use(
     const message = error.response?.data?.message || error.message;
     console.log('Api Error:');
     console.log(message);
+    alert('Api Error');
     return Promise.reject(error);
   }
 );

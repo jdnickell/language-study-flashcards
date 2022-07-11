@@ -13,10 +13,10 @@ export const ContentLayout = ({ children, title }: ContentLayoutProps) => {
     <>
       <Head title={title} />
       <Container fixed>
-        <Typography py={3} variant="h5">
+        <Typography py={2} variant="h5">
           {title}
         </Typography>
-        <Box py={3}>{children}</Box>
+        <Box py={1}>{children}</Box>
       </Container>
     </>
   );

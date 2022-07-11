@@ -235,10 +235,6 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
 
         {children}
       </Box>
-
-      <Box display="flex" justifyContent="center" alignItems="center">
-        <Typography variant="subtitle2">Flashcards App</Typography>
-      </Box>
     </>
   );
 };

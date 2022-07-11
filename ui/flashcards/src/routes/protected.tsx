@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Suspense } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
@@ -12,17 +12,24 @@ const { Dashboard } = lazyImport(() => import('../features/misc'), 'Dashboard');
 
 const App = () => {
   return (
-    <MainLayout>
-      <Suspense
-        fallback={
-          <Box sx={{ display: 'flex' }}>
-            <CircularProgress />
+    <>
+      <MainLayout>
+        <Suspense
+          fallback={
+            <Box sx={{ display: 'flex' }}>
+              <CircularProgress />
+            </Box>
+          }
+        >
+          <Outlet />
+          <Box display="flex" justifyContent="center" alignItems="center">
+            <Typography variant="subtitle2" py={3}>
+              Flashcards App
+            </Typography>
           </Box>
-        }
-      >
-        <Outlet />
-      </Suspense>
-    </MainLayout>
+        </Suspense>
+      </MainLayout>
+    </>
   );
 };
 
